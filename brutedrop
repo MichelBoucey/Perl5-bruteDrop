@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-=LICENSE
+=pod
 
   Copyright (C) 2017 by Michel Boucey
   Released under BSD-3 license clause
