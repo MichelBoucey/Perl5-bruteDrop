@@ -35,9 +35,6 @@ my $to = 'root';
 # Path to iptables
 my $iptables = '/usr/bin/iptables';
 
-# bruteDrop IPtables chain
-my $chain = 'bruteDrop';
-
 # Get log lines of failed SSH login attempts
 my @failed = `journalctl --since "5 minutes ago" -u sshd --no-pager | grep Failed`;
 
@@ -73,9 +70,9 @@ foreach (@failed) {
 
         } elsif ( ! grep(/^$4$/, @ipv4_addresses) ) {
 
-            if (system("$iptables -w -C $chain -s $4 -j DROP 2> /dev/null")) {
+            if (system("$iptables -w -C INPUT -s $4 -j DROP 2> /dev/null")) {
 
-                system("$iptables -w -A $chain -s $4 -j DROP");
+                system("$iptables -w -A INPUT -s $4 -j DROP");
 
                 print LOG "[$1] DROP $3\@$4\n";
 
